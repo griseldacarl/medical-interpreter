@@ -571,5 +571,184 @@ Run with: `npm test` (alias for `vitest run`).
 
 ---
 
+## 17. Appendices
+
+### A. Deployment — Cloudflare Pages
+
+**Two methods:**
+
+| Method | When to use |
+|--------|-------------|
+| **Git integration** (dashboard) | Auto-deploys on every `git push` |
+| **`npx wrangler pages deploy dist/`** | One-off or preview deployments from CLI |
+
+**Git integration setup:**
+1. Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git
+2. Select `griseldacarl/medical-interpreter`
+3. Build command: `npm run build`
+4. Build output directory: `dist`
+5. Save — every push to `main` auto-deploys
+
+**SPA client-side routing:**
+
+Cloudflare Pages **does not** automatically serve `index.html` for unknown routes.
+A `_routes.json` file in `public/` is required:
+
+```json
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/assets/*", "/images/*", "/favicon.svg", "/icons.svg"]
+}
+```
+
+**Do NOT use `_redirects` with `/* /index.html 200`** — Cloudflare Pages rejects this with:
+> `Infinite loop detected in this rule. This would cause a redirect to strip .html or /index and end up triggering this rule again.`
+
+**Direct CLI deploy (no git auto-deploy):**
+```bash
+npx wrangler login                          # one-time OAuth
+npx wrangler pages project create medical-interpreter --production-branch main
+npm run build && npx wrangler pages deploy dist/ --project-name medical-interpreter --branch main
+```
+
+**URL:** `https://medical-interpreter.pages.dev`
+
+### B. Tips & Tricks (Lessons Learned)
+
+#### TypeScript Config Gotchas
+
+| Setting | Effect |
+|---------|--------|
+| `verbatimModuleSyntax: true` | Requires `import type` for type-only imports: `import type { TranslationEntry } from './flashcard'` |
+| `erasableSyntaxOnly: true` | Forbids `enum`, `namespace`, and parameter properties. Use union types instead: `type View = 'home' \| 'study' \| 'quiz' \| 'search' \| 'bodySearch'` |
+
+Both are enabled in Vite 8 + TypeScript 6 scaffolding.
+
+#### Romaji Apostrophes
+
+Apostrophes in romaji (e.g. `kin'niku`, `en'i`) **must use double-quoted strings** in TypeScript source. Single quotes would terminate the string:
+
+```typescript
+// Correct
+ja: "kin'niku",
+romaji: "kin'niku",
+
+// Wrong — TypeScript error
+ja: 'kin'niku',
+```
+
+#### Formal Register Requirement
+
+Every language translation must use **formal/respectful register**:
+- French: always *vous*, never *tu*
+- Spanish: always *usted*, never *tú*
+- Chinese: polite forms (您 preferred over 你 for formal contexts)
+- Japanese: です/ます form, respectful vocabulary
+- Arabic: formal فصحى register, respectful phrasing (أنتم/حضرتك)
+- Somali, Swahili, Kinyarwanda: formal/polite address
+
+This applies to interview dialogues (doctor questions and patient responses).
+
+#### Web Speech API Locale Mapping
+
+Not all browsers support every locale. Tested mappings:
+
+| Code | Locale | Notes |
+|------|--------|-------|
+| `ar` | `ar-SA` | Arabic (Saudi Arabia) |
+| `rw` | `rw-RW` | Kinyarwanda |
+| `sw` | `sw-TZ` | Swahili (Tanzania) |
+| `zh` | `zh-CN` | Chinese (Simplified) |
+| `fr` | `fr-FR` | French (France) |
+| `so` | `so-SO` | Somali |
+| `es` | `es-ES` | Spanish (Spain) |
+| `ja` | `ja-JP` | Japanese |
+| `en` | `en-US` | English (US) |
+
+The `useSpeak` hook wraps `window.speechSynthesis` with error handling for unsupported locales.
+
+#### Gray's Anatomy Image Matching
+
+55+ anatomy plates from Gray's Anatomy are stored in `public/images/` named like `gray_plate_001.png`. Matching is done via a `imageMap` in each data file (e.g. `skeletalImageMap: Record<string, string>` mapping term IDs to image filenames). Images not found in the map hide gracefully via `useState + onError` on the `<img>` tag.
+
+**Image error handling pattern:**
+```tsx
+const [imgError, setImgError] = useState(false)
+{!imgError && imagePath && (
+  <img src={imagePath} alt="" onError={() => setImgError(true)} />
+)}
+```
+
+#### Body Map SVG Overlay
+
+Body images (1408×768) use an SVG overlay with `<rect>` regions for clickable anatomy areas:
+- `viewBox="0 0 1408 768"` for coordinate consistency
+- Rectangles defined in `src/data/bodyRegions.ts` per view
+- 4 views: male/female × anterior/posterior
+- 17 clickable regions per view
+- Coordinates may need manual adjustment — run `npm run dev` and hover to test
+
+#### Mobile Responsiveness Patterns
+
+| Element | Minimum touch target | Tailwind classes |
+|---------|---------------------|------------------|
+| SpeakButton | 44×44px | `min-w-[44px] min-h-[44px]` |
+| NavBar tabs | 44×44px | `min-w-[44px]` + responsive padding |
+| SRSControls buttons | 44px height | `p-2 sm:p-3` |
+| DeckSelector pills | 40px height | `px-3 py-2 sm:px-4 sm:py-2.5` |
+
+General approach: **mobile-first**, with `sm:` breakpoint for tablet+.
+
+#### Component Extraction Pattern
+
+When a UI section is reused across two views, extract it:
+1. Start inline (e.g. result card in SearchView)
+2. When BodySearch needs it too → extract to `ResultCard.tsx`
+3. Both views import and pass same props shape
+
+This avoids code duplication without premature abstraction.
+
+#### Cloudflare Pages Deployment
+
+- `_redirects` with `/* /index.html 200` causes an **infinite loop error** — use `_routes.json` instead
+- The `npm run build` command in tsconfig+based projects runs `tsc -b` then `vite build`
+- Build output is `dist/` — set as output directory
+- For local testing before deploy: `npm run preview` serves the production build
+- Wrangler may warn about uncommitted changes — pass `--commit-dirty=true` to silence
+
+#### Pre-Deployment Checklist
+
+Run in order:
+```bash
+npm run lint        # tsc --noEmit
+npm run build       # tsc -b && vite build
+npm test            # vitest run
+```
+
+#### State Persistence Across Tabs
+
+When adding new navigation views, the selected `system` and `sourceLang` are lifted to `App.tsx` state so they persist when switching between tabs (Home → Study → Quiz → Search → Body). The `useSRS` hook also persists to `localStorage` so the SM-2 card states survive page refreshes.
+
+#### Data Generation Script
+
+For bulk-generated data (180 anatomy terms):
+1. Write a Node script in `scripts/generate-data.js`
+2. Use translation objects for each term
+3. The script outputs TS arrays that you copy into the system data files
+4. This is faster than hand-writing 180 entries but requires careful review for accuracy
+
+#### Interview System Extension
+
+Adding a new body system (`'interview'`) required:
+1. Extending the `BodySystem` union type — changes in one file (`types/flashcard.ts`)
+2. Creating data file with correct ID prefix (`in-`)
+3. Importing and aggregating in `src/data/index.ts`
+4. Adding a button in `DeckSelector.tsx`
+5. No other component changes needed — filters, FlashCard, QuizPanel, SearchView all work automatically
+
+---
+
 *Document generated: 2026-06-03*
-*Covers all 180 medical terms across 7 body systems and 9 languages.*
+*Last updated: 2026-06-04*
+*Covers all 266 medical/interview terms across 8 systems and 9 languages.*
