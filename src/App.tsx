@@ -88,38 +88,45 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-slate-50 p-6">
-      <h1 className="text-4xl font-bold text-slate-800">Medical Interpreter</h1>
-      <p className="text-lg text-slate-500">
-        Learn medical terminology in 9 languages
-      </p>
-      <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-10 bg-slate-50 p-8">
+      <div className="text-center">
+        <span className="material-symbols-outlined text-5xl text-amber-600 mb-3">language</span>
+        <h1 className="text-5xl font-serif font-bold text-slate-800">Medical Interpreter</h1>
+        <p className="mt-2 text-base text-slate-400">
+          Learn medical terminology in 9 languages
+        </p>
+      </div>
+      <div className="flex flex-col gap-4 w-full max-w-xs">
         <button
           type="button"
           onClick={() => setView('study')}
-          className="rounded-xl bg-teal-600 px-8 py-4 text-lg font-medium text-white shadow-lg hover:bg-teal-700"
+          className="flex items-center gap-3 rounded bg-amber-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-amber-700"
         >
+          <span className="material-symbols-outlined">library_books</span>
           Study
         </button>
         <button
           type="button"
           onClick={() => setView('quiz')}
-          className="rounded-xl bg-cyan-600 px-8 py-4 text-lg font-medium text-white shadow-lg hover:bg-cyan-700"
+          className="flex items-center gap-3 rounded bg-cyan-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-cyan-700"
         >
+          <span className="material-symbols-outlined">quiz</span>
           Quiz
         </button>
         <button
           type="button"
           onClick={() => setView('search')}
-          className="rounded-xl bg-violet-600 px-8 py-4 text-lg font-medium text-white shadow-lg hover:bg-violet-700"
+          className="flex items-center gap-3 rounded bg-violet-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-violet-700"
         >
+          <span className="material-symbols-outlined">search</span>
           Search
         </button>
         <button
           type="button"
           onClick={() => setView('bodySearch')}
-          className="rounded-xl bg-purple-600 px-8 py-4 text-lg font-medium text-white shadow-lg hover:bg-purple-700"
+          className="flex items-center gap-3 rounded bg-purple-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-purple-700"
         >
+          <span className="material-symbols-outlined">accessibility_new</span>
           Body Search
         </button>
       </div>

@@ -37,8 +37,8 @@ function BodyMap({
               y={y}
               width={w}
               height={h}
-              fill={isHovered ? 'rgba(139, 92, 246, 0.25)' : 'transparent'}
-              stroke={isHovered ? '#8b5cf6' : 'transparent'}
+        fill={isHovered ? 'rgba(147, 51, 234, 0.25)' : 'transparent'}
+        stroke={isHovered ? '#9333ea' : 'transparent'}
               strokeWidth={2}
               rx={6}
               className="cursor-pointer transition-all duration-150"
@@ -51,7 +51,7 @@ function BodyMap({
       </svg>
 
       {hovered && (
-        <div className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 rounded-lg bg-violet-700 px-4 py-1.5 text-sm font-medium text-white shadow-lg">
+        <div className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 rounded bg-purple-700 px-4 py-1.5 text-sm font-medium text-white shadow-lg">
           {view.regions.find(r => r.id === hovered)?.label}
         </div>
       )}
@@ -81,11 +81,9 @@ export function BodySearch() {
         <button
           type="button"
           onClick={() => setSelectedRegion(null)}
-          className="mb-4 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-violet-600 hover:bg-violet-50 transition-colors"
+          className="mb-4 inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-sm font-medium text-purple-600 hover:bg-purple-50 transition-colors"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-            <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
-          </svg>
+          <span className="material-symbols-outlined text-base">arrow_back</span>
           Back to body map
         </button>
 
@@ -103,37 +101,37 @@ export function BodySearch() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-6">
-      <div className="mb-6 flex flex-wrap gap-2">
-        {bodyViews.map((v, i) => (
-          <button
-            key={v.imageFile}
-            type="button"
-            onClick={() => {
-              setViewIndex(i)
-              setHovered(null)
-            }}
-            className={
-              viewIndex === i
-                ? 'rounded-lg bg-violet-100 px-4 py-2 text-sm font-medium text-violet-700'
-                : 'rounded-lg bg-white px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors'
-            }
-          >
-            {v.label}
-          </button>
-        ))}
+      <div className="mx-auto w-full max-w-4xl px-4 py-6">
+        <div className="mb-6 flex flex-wrap gap-2">
+          {bodyViews.map((v, i) => (
+            <button
+              key={v.imageFile}
+              type="button"
+              onClick={() => {
+                setViewIndex(i)
+                setHovered(null)
+              }}
+              className={
+                viewIndex === i
+                  ? 'rounded-sm bg-purple-100 px-4 py-2 text-sm font-semibold text-purple-700'
+                  : 'rounded-sm bg-white px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors'
+              }
+            >
+              {v.label}
+            </button>
+          ))}
+        </div>
+
+        <BodyMap
+          view={currentView}
+          hovered={hovered}
+          onHover={setHovered}
+          onSelect={setSelectedRegion}
+        />
+
+        <p className="mt-4 text-center text-sm text-slate-400">
+          Click a body region to see related terms
+        </p>
       </div>
-
-      <BodyMap
-        view={currentView}
-        hovered={hovered}
-        onHover={setHovered}
-        onSelect={setSelectedRegion}
-      />
-
-      <p className="mt-4 text-center text-sm text-slate-400">
-        Click a body region to see related terms
-      </p>
-    </div>
   )
 }

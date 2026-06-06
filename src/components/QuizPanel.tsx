@@ -60,8 +60,9 @@ export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="mb-8 rounded-2xl bg-white p-4 text-center shadow-lg sm:p-8">
-        <span className="mb-3 block text-sm font-medium text-teal-600 uppercase tracking-wide">
+      <div className="mb-8 rounded-lg bg-white p-4 text-center shadow-lg sm:p-8 relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-cyan-600 rounded-t-lg" />
+        <span className="mb-3 block text-xs font-bold text-cyan-600 uppercase tracking-[0.15em]">
           {entry.system}
         </span>
 
@@ -100,7 +101,7 @@ export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
             key={opt}
             type="button"
             onClick={() => handleSelect(opt)}
-            className={`rounded-xl border-2 px-4 py-3 text-left text-base font-medium transition-colors sm:px-6 sm:py-4 ${btnClass(opt)}`}
+            className={`rounded border-2 px-4 py-3 text-left text-base font-medium transition-colors sm:px-6 sm:py-4 ${btnClass(opt)}`}
           >
             {opt}
           </button>
@@ -112,7 +113,7 @@ export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
           <button
             type="button"
             onClick={handleNext}
-            className="rounded-xl bg-teal-600 px-8 py-3 text-base font-medium text-white hover:bg-teal-700"
+            className="rounded bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700"
           >
             Next
           </button>

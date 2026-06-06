@@ -15,7 +15,7 @@ const LANG_DISPLAY: { code: LanguageCode; label: string }[] = [
 
 export function ResultCard({ entry }: { entry: TranslationEntry }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
       <div className="mb-3 flex items-center gap-2">
         <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 uppercase">
           {entry.system}

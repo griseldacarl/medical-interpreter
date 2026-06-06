@@ -13,7 +13,7 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
       </div>
       <div className="h-1 w-full rounded-full bg-slate-200">
         <div
-          className="h-1 rounded-full bg-teal-600 transition-all duration-300"
+          className="h-1 rounded-full bg-amber-600 transition-all duration-300"
           style={{ width: `${pct}%` }}
         />
       </div>

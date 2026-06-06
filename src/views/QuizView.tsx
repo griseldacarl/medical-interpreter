@@ -32,7 +32,7 @@ export function QuizView({
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 lg:flex-row">
-      <aside className="border-b border-slate-200 bg-white lg:w-60 lg:border-b-0 lg:border-r">
+      <aside className="border-b border-slate-200 bg-slate-50 lg:w-60 lg:border-b-0 lg:border-r">
         <DeckSelector
           selectedSystem={system}
           onSelectSystem={s => {

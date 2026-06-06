@@ -48,8 +48,8 @@ export function DeckSelector({
               onClick={() => onSelectLang(l.code)}
               className={
                 sourceLang === l.code
-                  ? 'rounded-lg bg-teal-100 px-3 py-2 text-sm font-medium text-teal-700 sm:px-5 sm:py-2.5'
-                  : 'rounded-lg bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:px-5 sm:py-2.5'
+                  ? 'rounded-sm bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-700 sm:px-5 sm:py-2.5'
+                  : 'rounded-sm bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:px-5 sm:py-2.5'
               }
             >
               {l.label}
@@ -67,8 +67,8 @@ export function DeckSelector({
               onClick={() => onSelectSystem(s.value)}
               className={
                 selectedSystem === s.value
-                  ? 'rounded-lg bg-teal-100 px-3 py-2 text-sm font-medium text-teal-700 sm:px-5 sm:py-2.5'
-                  : 'rounded-lg bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:px-5 sm:py-2.5'
+                  ? 'rounded-sm bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-700 sm:px-5 sm:py-2.5'
+                  : 'rounded-sm bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:px-5 sm:py-2.5'
               }
             >
               {s.label}

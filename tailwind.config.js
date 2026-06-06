@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+      },
+      transitionDuration: {
+        '400': '400ms',
+        '600': '600ms',
+      },
+    },
   },
   plugins: [],
 }
