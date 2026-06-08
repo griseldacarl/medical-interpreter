@@ -14,6 +14,15 @@ const LANGUAGES: { code: LanguageCode; label: string }[] = [
   { code: 'so', label: 'Soomaali' },
   { code: 'es', label: 'Español' },
   { code: 'ja', label: '日本語' },
+  { code: 'ps', label: 'پښتو' },
+  { code: 'my', label: 'မြန်မာဘာသာ' },
+  { code: 'prs', label: 'دری' },
+  { code: 'fa', label: 'فارسی' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ru', label: 'Русский' },
+  { code: 'vi', label: 'Tiếng Việt' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'bn', label: 'বাংলা' },
   { code: 'en', label: 'English' },
 ]
 

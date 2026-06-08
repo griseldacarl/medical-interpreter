@@ -22,12 +22,12 @@ function shuffle<T>(arr: T[]): T[] {
 export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
   const [selected, setSelected] = useState<string | null>(null)
   const [imgError, setImgError] = useState(false)
-  const correct = entry.translations.en
+  const correct = entry.translations.en 
 
   const options = useMemo(() => {
     const others = allTerms
-      .filter(t => t.translations.en !== correct)
-      .map(t => t.translations.en)
+      .filter(t => (t.translations.en ) !== correct)
+      .map(t => t.translations.en )
     const distractors = shuffle(others).slice(0, 3)
     return shuffle([correct, ...distractors])
   }, [correct])
@@ -83,7 +83,7 @@ export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
               <span className="block text-2xl font-bold text-slate-800 sm:text-4xl">
                 {entry.translations[sourceLang]}
               </span>
-              <SpeakButton text={entry.translations[sourceLang]} lang={sourceLang} />
+              <SpeakButton text={entry.translations[sourceLang] } lang={sourceLang} />
             </>
           )}
         </div>

@@ -9,7 +9,9 @@ export type BodySystem =
   | 'interview'
 
 export type LanguageCode =
-  | 'ar' | 'rw' | 'sw' | 'zh' | 'fr' | 'so' | 'es' | 'ja' | 'en'
+  | 'ar' | 'rw' | 'sw' | 'zh' | 'fr' | 'so' | 'es' | 'ja'
+  | 'ps' | 'my' | 'prs' | 'fa' | 'pt' | 'ru' | 'vi' | 'de' | 'bn'
+  | 'en'
 
 export interface JapaneseDetail {
   kanji: string

@@ -52,7 +52,7 @@ export function FlashCard({ entry, sourceLang, flipped, onFlip }: FlashCardProps
               <span className="text-center text-3xl font-serif font-bold text-slate-800 sm:text-5xl">
                 {entry.translations[sourceLang]}
               </span>
-              <SpeakButton text={entry.translations[sourceLang]} lang={sourceLang} />
+              <SpeakButton text={entry.translations[sourceLang] } lang={sourceLang} />
             </div>
           )}
 
@@ -87,7 +87,7 @@ export function FlashCard({ entry, sourceLang, flipped, onFlip }: FlashCardProps
           </span>
 
           <div className="mt-4">
-            <SpeakButton text={entry.translations.en} lang="en" />
+            <SpeakButton text={entry.translations.en } lang="en" />
           </div>
 
           {entry.position && (

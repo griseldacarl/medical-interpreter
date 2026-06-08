@@ -11,6 +11,15 @@ const LANG_DISPLAY: { code: LanguageCode; label: string }[] = [
   { code: 'rw', label: 'Kinyarwanda' },
   { code: 'sw', label: 'Kiswahili' },
   { code: 'so', label: 'Soomaali' },
+  { code: 'ps', label: 'پښتو' },
+  { code: 'my', label: 'မြန်မာ' },
+  { code: 'prs', label: 'دری' },
+  { code: 'fa', label: 'فارسی' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ru', label: 'Русский' },
+  { code: 'vi', label: 'Tiếng Việt' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'bn', label: 'বাংলা' },
 ]
 
 export function ResultCard({ entry }: { entry: TranslationEntry }) {

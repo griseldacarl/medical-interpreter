@@ -48,15 +48,15 @@ export function FillInBlank({ terms, sourceLang, onComplete }: FillInBlankProps)
   const answered = selected !== null
   const isLast = index >= questions.length - 1
 
-  const blanked = current ? blankTerm(current.translations[sourceLang]) : ''
+  const blanked = current ? blankTerm(current.translations[sourceLang] ) : ''
 
   const options = useMemo(() => {
     if (!current) return []
-    const correct = current.translations[sourceLang]
+    const correct = current.translations[sourceLang] 
     if (!correct) return []
     const others = allTerms
-      .filter(t => t.translations[sourceLang] !== correct)
-      .map(t => t.translations[sourceLang])
+      .filter(t => (t.translations[sourceLang] ) !== correct)
+      .map(t => t.translations[sourceLang] )
     const distractors = shuffle(others).slice(0, 3)
     return shuffle([correct, ...distractors])
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +87,7 @@ export function FillInBlank({ terms, sourceLang, onComplete }: FillInBlankProps)
     setSelected(null)
   }
 
-  const correct = current.translations[sourceLang] ?? ''
+  const correct = current.translations[sourceLang] 
 
   function btnClass(option: string): string {
     if (!answered) {

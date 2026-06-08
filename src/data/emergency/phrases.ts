@@ -2,10 +2,10 @@ import type { LanguageCode } from '../../types/flashcard'
 
 export interface EmergencyPhrase {
   id: string
-  translations: Record<LanguageCode, string>
+  translations: Partial<Record<LanguageCode, string>>
 }
 
-type LangRec = Record<LanguageCode, string>
+type LangRec = Partial<Record<LanguageCode, string>>
 const t = (en: string, ar: string, rw: string, sw: string, zh: string, fr: string, so: string, es: string, ja: string): LangRec => ({
   ar, rw, sw, zh, fr, so, es, ja, en,
 })

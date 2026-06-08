@@ -40,17 +40,17 @@ export function RearrangeSentence({ terms, sourceLang, onComplete }: RearrangeSe
   const [score, setScore] = useState(0)
   const [pool, setPool] = useState<string[]>(() => {
     const first = sentences[0]
-    return first ? shuffle(getWords(first.translations[sourceLang] ?? '')) : []
+    return first ? shuffle(getWords(first.translations[sourceLang] )) : []
   })
   const [answer, setAnswer] = useState<string[]>([])
   const [checked, setChecked] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
 
   const current = sentences[index]
-  const originalWords = current ? getWords(current.translations[sourceLang] ?? '') : []
+  const originalWords = current ? getWords(current.translations[sourceLang] ) : []
   const isLast = index >= sentences.length - 1
 
-  const isCJK = current ? /[\u4e00-\u9fff]/.test(current.translations[sourceLang] ?? '') : false
+  const isCJK = current ? /[\u4e00-\u9fff]/.test(current.translations[sourceLang] ) : false
 
   useEffect(() => {
     setPool(shuffle(originalWords))

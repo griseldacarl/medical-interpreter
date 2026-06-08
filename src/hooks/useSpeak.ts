@@ -8,6 +8,15 @@ const LANG_MAP: Record<string, string> = {
   es: 'es-ES',
   ja: 'ja-JP',
   en: 'en-US',
+  ps: 'ps-AF',
+  my: 'my-MM',
+  prs: 'prs-AF',
+  fa: 'fa-IR',
+  pt: 'pt-PT',
+  ru: 'ru-RU',
+  vi: 'vi-VN',
+  de: 'de-DE',
+  bn: 'bn-BD',
 }
 
 export function useSpeak() {

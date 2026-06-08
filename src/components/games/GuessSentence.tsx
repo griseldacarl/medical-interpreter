@@ -52,16 +52,16 @@ export function GuessSentence({ terms, sourceLang, onComplete }: GuessSentencePr
   const isLast = index >= questions.length - 1
 
   const sentenceInfo = current
-    ? partialSentence(current.translations[sourceLang] ?? '')
+    ? partialSentence(current.translations[sourceLang] )
     : { fragment: '', isBeginning: false }
 
   const options = useMemo(() => {
     if (!current) return []
-    const correct = current.translations[sourceLang]
+    const correct = current.translations[sourceLang] 
     if (!correct) return []
     const others = interviewTerms
-      .filter(t => t.translations[sourceLang] !== correct)
-      .map(t => t.translations[sourceLang])
+      .filter(t => (t.translations[sourceLang] ) !== correct)
+      .map(t => t.translations[sourceLang] )
     const distractors = shuffle(others).slice(0, 3)
     return shuffle([correct, ...distractors])
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +96,7 @@ export function GuessSentence({ terms, sourceLang, onComplete }: GuessSentencePr
     setSelected(null)
   }
 
-  const correct = current.translations[sourceLang] ?? ''
+  const correct = current.translations[sourceLang] 
 
   function btnClass(option: string): string {
     if (!answered) {
