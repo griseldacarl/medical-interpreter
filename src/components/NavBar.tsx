@@ -7,13 +7,15 @@ interface NavBarProps {
   onQuiz: () => void
   onSearch: () => void
   onBodySearch: () => void
+  onGames: () => void
 }
 
-export function NavBar({ currentView, onHome, onStudy, onQuiz, onSearch, onBodySearch }: NavBarProps) {
+export function NavBar({ currentView, onHome, onStudy, onQuiz, onSearch, onBodySearch, onGames }: NavBarProps) {
   const tabs: { view: View; label: string; icon: string; active: string; inactive: string }[] = [
     { view: 'study', label: 'Study', icon: 'library_books', active: 'text-amber-600 bg-amber-100', inactive: 'text-slate-400' },
     { view: 'search', label: 'Search', icon: 'search', active: 'text-violet-600 bg-violet-100', inactive: 'text-slate-400' },
     { view: 'bodySearch', label: 'Body', icon: 'accessibility_new', active: 'text-purple-600 bg-purple-100', inactive: 'text-slate-400' },
+    { view: 'games', label: 'Games', icon: 'sports_esports', active: 'text-green-600 bg-green-100', inactive: 'text-slate-400' },
     { view: 'quiz', label: 'Quiz', icon: 'quiz', active: 'text-cyan-600 bg-cyan-100', inactive: 'text-slate-400' },
   ]
 
@@ -37,6 +39,7 @@ export function NavBar({ currentView, onHome, onStudy, onQuiz, onSearch, onBodyS
                 t.view === 'study' ? onStudy :
                 t.view === 'search' ? onSearch :
                 t.view === 'bodySearch' ? onBodySearch :
+                t.view === 'games' ? onGames :
                 onQuiz
               }
               className={`flex items-center gap-1 rounded-sm px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${

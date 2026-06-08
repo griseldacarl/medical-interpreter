@@ -5,8 +5,10 @@ import { SearchView } from './components/SearchView'
 import { BodySearch } from './components/BodySearch'
 import { StudyView } from './views/StudyView'
 import { QuizView } from './views/QuizView'
+import { GamesView } from './views/GamesView'
+import { EmergencyView } from './components/emergency/EmergencyView'
 
-export type View = 'home' | 'study' | 'quiz' | 'search' | 'bodySearch'
+export type View = 'home' | 'study' | 'quiz' | 'search' | 'bodySearch' | 'games' | 'emergency'
 
 export default function App() {
   const [view, setView] = useState<View>('home')
@@ -23,6 +25,7 @@ export default function App() {
           onQuiz={() => setView('quiz')}
           onSearch={() => setView('search')}
           onBodySearch={() => setView('bodySearch')}
+          onGames={() => setView('games')}
         />
         <StudyView
           system={system}
@@ -44,6 +47,7 @@ export default function App() {
           onQuiz={() => {}}
           onSearch={() => setView('search')}
           onBodySearch={() => setView('bodySearch')}
+          onGames={() => setView('games')}
         />
         <QuizView
           system={system}
@@ -65,6 +69,7 @@ export default function App() {
           onQuiz={() => setView('quiz')}
           onSearch={() => {}}
           onBodySearch={() => setView('bodySearch')}
+          onGames={() => setView('games')}
         />
         <SearchView />
       </div>
@@ -81,8 +86,48 @@ export default function App() {
           onQuiz={() => setView('quiz')}
           onSearch={() => setView('search')}
           onBodySearch={() => {}}
+          onGames={() => setView('games')}
         />
         <BodySearch />
+      </div>
+    )
+  }
+
+  if (view === 'games') {
+    return (
+      <div className="flex min-h-screen flex-col bg-slate-50">
+        <NavBar
+          currentView="games"
+          onHome={() => setView('home')}
+          onStudy={() => setView('study')}
+          onQuiz={() => setView('quiz')}
+          onSearch={() => setView('search')}
+          onBodySearch={() => setView('bodySearch')}
+          onGames={() => {}}
+        />
+        <GamesView
+          system={system}
+          sourceLang={sourceLang}
+          onSystemChange={setSystem}
+          onLangChange={setSourceLang}
+        />
+      </div>
+    )
+  }
+
+  if (view === 'emergency') {
+    return (
+      <div className="flex min-h-screen flex-col bg-slate-50">
+        <NavBar
+          currentView="emergency"
+          onHome={() => setView('home')}
+          onStudy={() => setView('study')}
+          onQuiz={() => setView('quiz')}
+          onSearch={() => setView('search')}
+          onBodySearch={() => setView('bodySearch')}
+          onGames={() => setView('games')}
+        />
+        <EmergencyView />
       </div>
     )
   }
@@ -128,6 +173,22 @@ export default function App() {
         >
           <span className="material-symbols-outlined">accessibility_new</span>
           Body Search
+        </button>
+        <button
+          type="button"
+          onClick={() => setView('games')}
+          className="flex items-center gap-3 rounded bg-green-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-green-700"
+        >
+          <span className="material-symbols-outlined">sports_esports</span>
+          Games
+        </button>
+        <button
+          type="button"
+          onClick={() => setView('emergency')}
+          className="flex items-center gap-3 rounded bg-amber-600 px-6 py-4 text-base font-semibold text-white shadow-md hover:bg-amber-700"
+        >
+          <span className="material-symbols-outlined">local_hospital</span>
+          Emergency Medicine
         </button>
       </div>
     </div>
