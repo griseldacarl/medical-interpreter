@@ -46,7 +46,10 @@ export function FlashCard({ entry, sourceLang, flipped, onFlip }: FlashCardProps
           )}
 
           {showJapanese && entry.japaneseDetail ? (
-            <JapaneseStack detail={entry.japaneseDetail} />
+            <div className="flex flex-col items-center gap-3">
+              <JapaneseStack detail={entry.japaneseDetail} />
+              <SpeakButton text={entry.japaneseDetail.kanji} lang="ja" />
+            </div>
           ) : (
             <div className="flex items-center justify-center gap-3">
               <span className="text-center text-3xl font-serif font-bold text-slate-800 sm:text-5xl">

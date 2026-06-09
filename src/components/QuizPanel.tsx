@@ -77,7 +77,10 @@ export function QuizPanel({ entry, sourceLang, onNext }: QuizPanelProps) {
 
         <div className="flex items-center justify-center">
           {showJapanese && entry.japaneseDetail ? (
-            <JapaneseStack detail={entry.japaneseDetail} />
+            <div className="flex flex-col items-center gap-3">
+              <JapaneseStack detail={entry.japaneseDetail} />
+              <SpeakButton text={entry.japaneseDetail.kanji} lang="ja" />
+            </div>
           ) : (
             <>
               <span className="block text-2xl font-bold text-slate-800 sm:text-4xl">
